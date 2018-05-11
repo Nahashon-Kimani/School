@@ -18,7 +18,7 @@ public class WordSearch extends AppCompatActivity {
         webView  = findViewById(R.id.web_view);
         WebSettings webSettings = webView.getSettings();
         //webSettings.setJavaScriptEnabled(true);
-        webView.loadUrl("https://www.pu.ac.ke");
+        webView.loadUrl("https://www.google.com");
 
     }
 }

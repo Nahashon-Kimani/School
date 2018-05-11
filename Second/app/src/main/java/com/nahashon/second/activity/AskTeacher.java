@@ -76,7 +76,7 @@ public class AskTeacher extends AppCompatActivity {
 
                 }
 
-               for(int i=list.size();i>=0;i--){
+               for(int i=list.size()-1;i>=0;i--){
                     invert.add(list.get(i));
 
 

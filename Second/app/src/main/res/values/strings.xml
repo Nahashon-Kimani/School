@@ -9,5 +9,6 @@
        s adds left or right margin values (depending on gravity), taking into account the SDK version too.</string>
     <string name="title_activity_notes">Notes</string>
     <string name="type_question">Type Question</string>
+    <string name="last">Last</string>
 
 </resources>

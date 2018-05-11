@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         mD = FirebaseDatabase.getInstance();
-       // mD.setPersistenceEnabled(true);
+        mD.setPersistenceEnabled(true);
 
         mDatabase=mD.getReference().child("Levels");
 
