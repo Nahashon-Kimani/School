@@ -23,7 +23,7 @@
         android:layout_weight=".1"
         android:background="@android:color/white"
         android:minHeight="32dp"
-        app:layout_anchor="@id/design_bottom_sheet"
+        app:layout_anchor="@id/bottom"
         app:layout_anchorGravity="start">
 
         <EditText
@@ -45,7 +45,7 @@
     </LinearLayout>
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/design_bottom_sheet"
+        android:id="@+id/bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

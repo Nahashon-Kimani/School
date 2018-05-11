@@ -1,9 +1,11 @@
 package com.nahashon.second.activity;
 
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,38 +20,82 @@ import com.google.firebase.database.ValueEventListener;
 import com.nahashon.second.R;
 import com.nahashon.second.adapter.Adapter;
 import com.nahashon.second.adapter.Question;
+import com.nahashon.second.interfaces.AskTeacherInterface;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AskTeacher extends AppCompatActivity {
+public class AskTeacher extends AppCompatActivity implements AskTeacherInterface{
     ImageView sendQuestion;
     EditText newQuestion;
     ListView questionList;
     DatabaseReference mRef;
     FirebaseDatabase database;
+    BottomNavigationView bottom;
     RecyclerView list1;
     List<Question> list = new ArrayList<>();
     List<Question> invert = new ArrayList<>();
+    List<Question> answered = new ArrayList<>();
+    List<Question> pending = new ArrayList<>();
+    List<Question> myQ = new ArrayList<>();
 
 
-    public void answered(View view) {
+    public void answered() {
+        answered.clear();
+        for(int i=0;i<invert.size();i++){
+            if(!invert.get(i).getAnswer().equals("pending")){
+                answered.add(invert.get(i));
+
+
+            }
+
+
+
+        }
+
+        list1.setAdapter(new Adapter(answered));
 
     }
 
 
-    public void pending(View view) {
+    public void pending() {
+        pending.clear();
+        for(int i=0;i<list.size();i++){
+            if(invert.get(i).getAnswer().equals("Pending")){
+                pending.add(invert.get(i));
+
+
+            }
+
+
+
+        }
+
+        list1.setAdapter(new Adapter(pending));
 
     }
 
 
-    public void archives(View view) {
+    public void archives() {
+
 
     }
 
-    public void myQ(View view) {
+    public void myQ() {
+        myQ.clear();
+        for(int i=0;i<list.size();i++){
+            if(!invert.get(i).getAnswer().equals("pending")){
+                myQ.add(invert.get(i));
+
+
+            }
+
+
+
+        }
+        list1.setAdapter(new Adapter(myQ));
 
 
     }
@@ -81,7 +127,7 @@ public class AskTeacher extends AppCompatActivity {
 
 
                }
-               list1.setAdapter(new Adapter(invert));
+               pending();
 
             }
 
@@ -95,6 +141,7 @@ public class AskTeacher extends AppCompatActivity {
         newQuestion = findViewById(R.id.new_question);
         sendQuestion = findViewById(R.id.send_question);
         //questionList = findViewById(R.id.question_list);
+        bottom= findViewById(R.id.bottom);
         list1 = findViewById(R.id.list1);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -109,6 +156,41 @@ public class AskTeacher extends AppCompatActivity {
                     newQuestion.setText("");
                 }
             }
+        });
+
+        bottom.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
+            public boolean onNavigationItemSelected(MenuItem menuItem){
+                switch(menuItem.getItemId()){
+                    case R.id.myQ:
+                        myQ();
+
+                        return true;
+                    case R.id.answered:
+                        answered();
+                        Toast.makeText(getApplicationContext(),"answered",Toast.LENGTH_LONG).show();
+
+                        return true;
+                    case R.id.pending:
+                        pending();
+
+                        return true;
+                    case R.id.archives:
+                        archives();
+
+                        return true;
+                    default:
+
+                        return false;
+
+
+                }
+
+
+            }
+
+
+
+
         });
 
 

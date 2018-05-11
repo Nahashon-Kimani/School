@@ -8,10 +8,10 @@ import android.view.View;
 
 public interface AskTeacherInterface {
 
-    void answered(View view);
-    void pending(View view);
-    void archives(View view);
-    void myQ(View view);
+    void answered();
+    void pending();
+    void archives();
+    void myQ();
 
 
 }
