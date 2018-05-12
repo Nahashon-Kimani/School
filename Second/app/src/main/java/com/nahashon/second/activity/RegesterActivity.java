@@ -25,7 +25,10 @@ public class RegesterActivity extends AppCompatActivity {
         email2=findViewById(R.id.email2);
         password1=findViewById(R.id.password1);
         password2=findViewById(R.id.password2);
+        mauth = FirebaseAuth.getInstance();
     }
+
+
     public boolean validate(){
         boolean valid = true;
         emailString1=email1.getEditText().getText().toString().trim();

@@ -66,7 +66,7 @@ public class AskTeacher extends AppCompatActivity implements AskTeacherInterface
     public void pending() {
         pending.clear();
         for(int i=0;i<list.size();i++){
-            if(invert.get(i).getAnswer().equals("Pending")){
+            if(invert.get(i).getAnswer().equals("pending")){
                 pending.add(invert.get(i));
 
 
@@ -89,7 +89,7 @@ public class AskTeacher extends AppCompatActivity implements AskTeacherInterface
     public void myQ() {
         myQ.clear();
         for(int i=0;i<list.size();i++){
-            if(!invert.get(i).getAnswer().equals("pending")){
+            if(!invert.get(i).getAnswer().equals(mAuth.getCurrentUser().getEmail())){
                 myQ.add(invert.get(i));
 
 

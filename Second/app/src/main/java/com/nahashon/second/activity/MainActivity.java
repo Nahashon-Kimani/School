@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         mD = FirebaseDatabase.getInstance();
         mD.setPersistenceEnabled(true);
 
+
         mDatabase=mD.getReference().child("Levels");
 
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
