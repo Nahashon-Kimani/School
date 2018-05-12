@@ -24,6 +24,7 @@ public class SubjectArrayAdapter extends BaseAdapter {
     private int[] pics;
     private Context context;
     public SubjectArrayAdapter(Context context,ArrayList<String> subjectName){
+        this.context=context;
         this.subjectName=subjectName;
         this.pics=pics;
 

@@ -4,6 +4,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo"
@@ -11,31 +16,40 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
+
+        </activity>
+        <activity
+            android:name=".activity.Subject"
+            android:label="Subjects" />
+        <activity
+            android:name=".activity.Topic"
+            android:label="Topic" />
+        <activity
+            android:name=".activity.NoteViewer"
+            android:label="Notes" />
+        <activity
+            android:name=".activity.AskTeacher"
+            android:label="Ask A Teacher" />
+        <activity
+            android:name=".activity.AnswerActivity"
+            android:label="Answers" />
+        <activity
+            android:name=".activity.WordSearch"
+            android:label="Search" />
+        <activity android:name=".activity.LoginActivity">
+
+        </activity>
+        <activity android:name=".activity.RegesterActivity">
+
+        </activity>
+        <activity android:name=".SplashScreen" android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.Subject"
-            android:label="Subjects"
-            />
-        <activity android:name=".activity.Topic"
-            android:label="Topic"
-            />
-        <activity android:name=".activity.NoteViewer"
-            android:label="Notes"
-            />
-        <activity android:name=".activity.AskTeacher"
-            android:label="Ask A Teacher"
-            />
-        <activity android:name=".activity.AnswerActivity"
-            android:label="Answers"
-            />
-        <activity android:name=".activity.WordSearch"
-           android:label="Search"
-            />
     </application>
 
 </manifest>

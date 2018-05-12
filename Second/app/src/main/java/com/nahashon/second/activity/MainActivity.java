@@ -1,4 +1,4 @@
-package com.nahashon.second;
+package com.nahashon.second.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,15 +8,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
-
+//added new comments
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.nahashon.second.R;
 import com.nahashon.second.adapter.GridAdapter;
 import com.nahashon.second.adapter.LevelClass;
-import com.nahashon.second.activity.Subject;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     Context context = MainActivity.this;
     DatabaseReference mDatabase;
     FirebaseDatabase mD;
+    FirebaseAuth mAuth;
     List<LevelClass> mLevel = new ArrayList<>();
     GridView grid;
     AVLoadingIndicatorView avl;
@@ -37,10 +39,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         grid = findViewById(R.id.gridView);
         avl = findViewById(R.id.avl);
+        mAuth=FirebaseAuth.getInstance();
 
 
         mD = FirebaseDatabase.getInstance();
-       // mD.setPersistenceEnabled(true);
+        mD.setPersistenceEnabled(true);
 
         mDatabase=mD.getReference().child("Levels");
 
@@ -72,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+    public void onStart(){
+        super.onStart();
+        if(mAuth.getCurrentUser()==null){
+            startActivity(new Intent(this, LoginActivity.class));
+        }
     }
 
 }

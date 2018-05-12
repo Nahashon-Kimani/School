@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,6 +50,15 @@ public class NoteViewer extends AppCompatActivity {
     TextToSpeech textToSpeech;
     String content;
     int result;
+    FirebaseAuth mAuth;
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        if(mAuth.getCurrentUser()==null){
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+    }
 
 
 
@@ -56,6 +66,7 @@ public class NoteViewer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
+        mAuth=FirebaseAuth.getInstance();
 
         myView = findViewById(R.id.PDFView);
         view = findViewById(R.id.pdfAv);
