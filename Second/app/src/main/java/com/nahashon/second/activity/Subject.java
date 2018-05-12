@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,12 +30,22 @@ public class Subject extends AppCompatActivity {
     BaseAdapter adapter;
     int[] array;
     ArrayList<String> subjectArrayList = new ArrayList<>();
+    FirebaseAuth mAuth;
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        if(mAuth.getCurrentUser()==null){
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject);
         mD = FirebaseDatabase.getInstance();
+        mAuth=FirebaseAuth.getInstance();
 
         subjectListView = findViewById(R.id.subject_list_view);
 //Getting the intents

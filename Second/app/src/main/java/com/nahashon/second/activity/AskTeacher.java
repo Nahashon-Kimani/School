@@ -1,5 +1,6 @@
 package com.nahashon.second.activity;
 
+import android.content.Intent;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,6 +42,7 @@ public class AskTeacher extends AppCompatActivity implements AskTeacherInterface
     List<Question> answered = new ArrayList<>();
     List<Question> pending = new ArrayList<>();
     List<Question> myQ = new ArrayList<>();
+    FirebaseAuth mAuth;
 
 
     public void answered() {
@@ -104,6 +107,7 @@ public class AskTeacher extends AppCompatActivity implements AskTeacherInterface
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ask_teacher);
+        mAuth=FirebaseAuth.getInstance();
 
 
 
@@ -205,10 +209,16 @@ public class AskTeacher extends AppCompatActivity implements AskTeacherInterface
 
         } else {
             String key = mRef.push().getKey();
-            mRef.child(key).setValue(new Question("Sam", DateFormat.getDateTimeInstance().format(new Date()), newQuestion.getText().toString().trim()));
+            mRef.child(key).setValue(new Question(mAuth.getCurrentUser().getEmail(), DateFormat.getDateTimeInstance().format(new Date()), newQuestion.getText().toString().trim()));
         }
         return results;
 
+    }
+    public void onStart(){
+        super.onStart();
+        if(mAuth.getCurrentUser()==null){
+            startActivity(new Intent(this, LoginActivity.class));
+        }
     }
 
 }

@@ -16,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".activity.MainActivity">
+
+        </activity>
         <activity
             android:name=".activity.Subject"
             android:label="Subjects" />
@@ -36,13 +38,18 @@
             android:name=".activity.WordSearch"
             android:label="Search" />
         <activity android:name=".activity.LoginActivity">
+
+        </activity>
+        <activity android:name=".activity.RegesterActivity">
+
+        </activity>
+        <activity android:name=".SplashScreen" android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegesterActivity"></activity>
     </application>
 
 </manifest>
