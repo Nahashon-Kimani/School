@@ -66,7 +66,8 @@ public class RegesterActivity extends AppCompatActivity {
                     public void onComplete(Task<AuthResult> task) {
                         if(task.isSuccessful()){
                            if(mauth.getCurrentUser()!=null){
-                               startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                               mauth.signOut();
+                               startActivity(new Intent(getApplicationContext(), LoginActivity.class));
 
 
                            }

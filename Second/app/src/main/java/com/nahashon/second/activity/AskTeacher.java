@@ -42,63 +42,34 @@ public class AskTeacher extends AppCompatActivity implements AskTeacherInterface
     List<Question> answered = new ArrayList<>();
     List<Question> pending = new ArrayList<>();
     List<Question> myQ = new ArrayList<>();
+    List<Question> archives = new ArrayList<>();
     FirebaseAuth mAuth;
+    Adapter myQAdapter,pendingAdapter,answeredAdapter,archivesAdapter;
 
 
     public void answered() {
-        answered.clear();
-        for(int i=0;i<invert.size();i++){
-            if(!invert.get(i).getAnswer().equals("pending")){
-                answered.add(invert.get(i));
 
 
-            }
-
-
-
-        }
-
-        list1.setAdapter(new Adapter(answered));
+        list1.setAdapter(answeredAdapter);
 
     }
 
 
     public void pending() {
-        pending.clear();
-        for(int i=0;i<list.size();i++){
-            if(invert.get(i).getAnswer().equals("pending")){
-                pending.add(invert.get(i));
 
-
-            }
-
-
-
-        }
-
-        list1.setAdapter(new Adapter(pending));
+        list1.setAdapter(pendingAdapter);
 
     }
 
 
     public void archives() {
 
-
+       list1.setAdapter(archivesAdapter);
     }
 
     public void myQ() {
-        myQ.clear();
-        for(int i=0;i<list.size();i++){
-            if(!invert.get(i).getAnswer().equals(mAuth.getCurrentUser().getEmail())){
-                myQ.add(invert.get(i));
 
-
-            }
-
-
-
-        }
-        list1.setAdapter(new Adapter(myQ));
+        list1.setAdapter(myQAdapter);
 
 
     }
@@ -115,11 +86,12 @@ public class AskTeacher extends AppCompatActivity implements AskTeacherInterface
         database = FirebaseDatabase.getInstance();
 
         mRef = database.getReference().child("Questions");
-        mRef.keepSynced(true);
+
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 list.clear();
+                invert.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     list.add(snapshot.getValue(Question.class));
@@ -131,7 +103,33 @@ public class AskTeacher extends AppCompatActivity implements AskTeacherInterface
 
 
                }
-               pending();
+                answered.clear();
+                myQ.clear();
+                pending.clear();
+                archives.clear();
+                for(int i=0;i<invert.size();i++){
+                    if(!invert.get(i).getAnswer().equals("pending")){
+                        answered.add(invert.get(i));
+                    }else if(invert.get(i).getAnswer().equals("pending")){
+                        pending.add(invert.get(i));
+
+
+                    }else if(invert.get(i).getSender().equals(mAuth.getCurrentUser().getEmail())){
+                        myQ.add(invert.get(i));
+
+
+                    }
+
+
+
+
+                }
+
+                pendingAdapter.notifyDataSetChanged();
+                archivesAdapter.notifyDataSetChanged();
+                answeredAdapter.notifyDataSetChanged();
+                archivesAdapter.notifyDataSetChanged();
+
 
             }
 
@@ -158,6 +156,7 @@ public class AskTeacher extends AppCompatActivity implements AskTeacherInterface
                 if (sendQuiz()) {
                     Toast.makeText(getApplicationContext(), "Sent", Toast.LENGTH_LONG).show();
                     newQuestion.setText("");
+
                 }
             }
         });
@@ -196,6 +195,10 @@ public class AskTeacher extends AppCompatActivity implements AskTeacherInterface
 
 
         });
+        pendingAdapter = new Adapter(pending);
+        myQAdapter= new Adapter(myQ);
+        answeredAdapter = new Adapter(answered);
+        archivesAdapter = new Adapter(archives);
 
 
     }
@@ -218,6 +221,10 @@ public class AskTeacher extends AppCompatActivity implements AskTeacherInterface
         super.onStart();
         if(mAuth.getCurrentUser()==null){
             startActivity(new Intent(this, LoginActivity.class));
+        }else{
+
+            bottom.setSelectedItemId(R.id.myQ);
+            myQ();
         }
     }
 
