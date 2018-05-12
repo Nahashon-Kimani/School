@@ -18,7 +18,7 @@ public class AnswerActivity extends AppCompatActivity {
         question= findViewById(R.id.Question);
         answer= findViewById(R.id.answer);
 
-
+//Git answer
 
         Intent intent =  getIntent();
         String senderName = intent.getStringExtra("Sender");
