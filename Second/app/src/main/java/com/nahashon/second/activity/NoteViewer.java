@@ -38,7 +38,7 @@ import javax.net.ssl.HttpsURLConnection;
 import io.github.yavski.fabspeeddial.FabSpeedDial;
 
 public class NoteViewer extends AppCompatActivity {
-    DatabaseReference mDatabase;
+    DatabaseReference mDatabase,mDatabaseNotes;
     FirebaseDatabase mD;
     TextView dateTextView, notesTextView;
     FabSpeedDial speedDial;
@@ -95,6 +95,23 @@ public class NoteViewer extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 new LoadPdf().execute(dataSnapshot.getValue().toString());
 
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //Getting the notes to read from Reading node of the database;
+        mDatabaseNotes = FirebaseDatabase.getInstance().getReference().child("Reading").child(level+subject).child(mTopic);
+        mDatabaseNotes.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                content = dataSnapshot.getValue().toString();
+                if (content.equals(null)){
+                    content = "No notes for now. Please try again later";
+                }
             }
 
             @Override

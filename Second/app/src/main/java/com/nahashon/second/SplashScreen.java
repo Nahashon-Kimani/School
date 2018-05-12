@@ -1,6 +1,7 @@
 package com.nahashon.second;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -31,8 +32,6 @@ public class SplashScreen extends AppCompatActivity {
                          userCheck();
                         }
                     });
-
-
                 }
                 catch (InterruptedException e){
 
@@ -42,6 +41,7 @@ public class SplashScreen extends AppCompatActivity {
             }
 
         }).start();
+
     }
     public void userCheck(){
 
@@ -52,7 +52,6 @@ public class SplashScreen extends AppCompatActivity {
         }else{
             Intent b = new Intent(getApplicationContext(), MainActivity.class);
             b.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
             startActivity(b);
         }
     }

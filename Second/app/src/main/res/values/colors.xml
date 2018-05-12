@@ -16,4 +16,5 @@
     <color name="app_background">#965c3006</color>
     <color name="main_color">#26a69a</color>
     <color name="main_color_dark">#96065c54</color>
+    <color name="question_color">#f50057</color>
 </resources>

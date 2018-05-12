@@ -15,6 +15,7 @@ public class AnswerActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.answer_activity_layout);
+
         name= findViewById(R.id.name);
         time= findViewById(R.id.date);
         question= findViewById(R.id.Question);
