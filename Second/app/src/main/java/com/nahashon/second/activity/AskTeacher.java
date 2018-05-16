@@ -110,11 +110,13 @@ public class AskTeacher extends AppCompatActivity implements AskTeacherInterface
                 for(int i=0;i<invert.size();i++){
                     if(!invert.get(i).getAnswer().equals("pending")){
                         answered.add(invert.get(i));
-                    }else if(invert.get(i).getAnswer().equals("pending")){
+                    }
+                    if(invert.get(i).getAnswer().equals("pending")){
                         pending.add(invert.get(i));
 
 
-                    }else if(invert.get(i).getSender().equals(mAuth.getCurrentUser().getEmail())){
+                    }
+                    if(invert.get(i).getSender().equals(mAuth.getCurrentUser().getEmail())){
                         myQ.add(invert.get(i));
 
 
@@ -213,6 +215,7 @@ public class AskTeacher extends AppCompatActivity implements AskTeacherInterface
         } else {
             String key = mRef.push().getKey();
             mRef.child(key).setValue(new Question(mAuth.getCurrentUser().getEmail(), DateFormat.getDateTimeInstance().format(new Date()), newQuestion.getText().toString().trim()));
+            myQ();
         }
         return results;
 
