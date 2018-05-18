@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.nahashon.second.R;
@@ -37,13 +38,57 @@ public class SubjectArrayAdapter extends BaseAdapter {
     public View getView(int position,View viewType,ViewGroup parent){
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.subjectview,parent,false);
-//        ImageView img=view.findViewById(R.id.imageView2);
-//        img.setImageResource(pics[position]);
+        ImageView img=view.findViewById(R.id.imageView2);
+
         TextView name=view.findViewById(R.id.textView3);
         name.setText(subjectName.get(position));
         TextView date=view.findViewById(R.id.textView2);
 
         date.setText("xxxxxxxxxxxxxxxxx");
+        switch(subjectName.get(position)){
+            case "Science":
+                img.setImageResource(R.mipmap.science);
+                break;
+            case "English":
+                img.setImageResource(R.mipmap.eng);
+                break;
+            case "Mathematics":
+                img.setImageResource(R.mipmap.math);
+                break;
+            case "Social Studies":
+                img.setImageResource(R.mipmap.social);
+                break;
+            case "Swahili":
+                img.setImageResource(R.mipmap.swa);
+                break;
+            case "Computer":
+                img.setImageResource(R.mipmap.computer);
+                break;
+            case "Biology":
+                img.setImageResource(R.mipmap.biology);
+                break;
+            case "Physics":
+                img.setImageResource(R.mipmap.physics);
+                break;
+            case "History":
+                img.setImageResource(R.mipmap.history);
+                break;
+            case "Geography":
+                img.setImageResource(R.mipmap.geo);
+                break;
+            case "Religion":
+                img.setImageResource(R.mipmap.religion);
+                break;
+            case "Chemistry":
+                img.setImageResource(R.mipmap.chem);
+                break;
+            case "Business":
+                img.setImageResource(R.mipmap.business);
+                break;
+            default:
+                img.setImageResource(R.mipmap.logo);
+
+        }
         return view;
 
     }
