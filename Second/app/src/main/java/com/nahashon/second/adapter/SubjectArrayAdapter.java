@@ -42,6 +42,7 @@ public class SubjectArrayAdapter extends BaseAdapter {
         TextView name=view.findViewById(R.id.textView3);
         name.setText(subjectName.get(position));
         TextView date=view.findViewById(R.id.textView2);
+
         date.setText("xxxxxxxxxxxxxxxxx");
         return view;
 
