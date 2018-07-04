@@ -5,7 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:weightSum="1"
     android:layout_width="match_parent"
+    android:minHeight="40dp"
     android:layout_height="wrap_content">
+
+    <Line
 
     <TextView
         android:id="@+id/topicName"
@@ -13,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight=".6"
+        android:textSize="26sp"
         android:text="TextView" />
 
     <ImageView
@@ -20,12 +24,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight=".2"
-        app:srcCompat="@mipmap/assignment" />
+        android:src="@drawable/text_mode" />
 
     <ImageView
         android:id="@+id/videoMode"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight=".2"
-        app:srcCompat="@mipmap/ask_teacher" />
+        app:srcCompat="@drawable/video_mode" />
 </LinearLayout>

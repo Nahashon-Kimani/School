@@ -1,6 +1,8 @@
 package com.nahashon.second.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.nahashon.second.adapter.Adapter;
 import com.nahashon.second.adapter.SubjectArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Subject extends AppCompatActivity {
 
@@ -31,6 +34,8 @@ public class Subject extends AppCompatActivity {
     int[] array;
     ArrayList<String> subjectArrayList = new ArrayList<>();
     FirebaseAuth mAuth;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     @Override
     public void onStart(){
@@ -44,6 +49,8 @@ public class Subject extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject);
+        preferences = getSharedPreferences("lastSeen",MODE_PRIVATE);
+        editor = preferences.edit();
         mD = FirebaseDatabase.getInstance();
         mAuth=FirebaseAuth.getInstance();
 
@@ -87,11 +94,16 @@ public class Subject extends AppCompatActivity {
         subjectListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                editor.putString(subjectArrayList.get(position), Calendar.getInstance().getTime().toString());
                     Intent topicIntent = new Intent(Subject.this, Topic.class);
                     topicIntent.putExtra("Level", level);
                     topicIntent.putExtra("Subject", subjectArrayList.get(position));
                     startActivity(topicIntent);
             }
         });
+
+
+
+
     }
 }

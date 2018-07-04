@@ -5,41 +5,49 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.nahashon.second.R;
+import com.wang.avi.AVLoadingIndicatorView;
 
 public class RegesterActivity extends AppCompatActivity {
     FirebaseAuth mauth;
     String emailString1,emailString2,passwordString1,passwordString2,verifiedemail,verifiedPassword;
     TextInputLayout email1,email2,password1,password2;
+    Button signu;
+    AVLoadingIndicatorView loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.regester_account_activity);
         email1=findViewById(R.id.email1);
-        email2=findViewById(R.id.email2);
+        email2=findViewById(R.id.phoneNo);
         password1=findViewById(R.id.password1);
         password2=findViewById(R.id.password2);
         mauth = FirebaseAuth.getInstance();
+        signu = findViewById(R.id.signUP);
+
+        signu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                join();
+            }
+        });
+
     }
 
 
     public boolean validate(){
         boolean valid = true;
         emailString1=email1.getEditText().getText().toString().trim();
-        emailString2=email2.getEditText().getText().toString().trim();
         passwordString1=password1.getEditText().getText().toString().trim();
         passwordString2=password2.getEditText().getText().toString().trim();
 
-        if(!emailString1.equals(emailString2)){
-            email2.setError("Both Emails must be the same");
-             valid=  false;
-        }
         if(!passwordString1.equals(passwordString2)){
             password2.setError("Both Emails must be the same");
             valid =  false;
@@ -60,6 +68,9 @@ public class RegesterActivity extends AppCompatActivity {
         return valid;
     }
     public void signUp(){
+        loader = findViewById(R.id.register_loader);
+        loader.setVisibility(View.VISIBLE);
+
         mauth.createUserWithEmailAndPassword(verifiedemail,verifiedPassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -79,7 +90,7 @@ public class RegesterActivity extends AppCompatActivity {
                 });
 
     }
-    public void join(View view){
+    public void join(){
         if(validate()){
             verifiedemail=emailString1;
             verifiedPassword=passwordString1;

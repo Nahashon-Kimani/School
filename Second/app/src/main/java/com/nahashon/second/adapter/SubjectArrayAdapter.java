@@ -1,6 +1,7 @@
 package com.nahashon.second.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import com.nahashon.second.R;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Created by Nahashon on 5/9/2018.
  */
@@ -24,10 +27,12 @@ public class SubjectArrayAdapter extends BaseAdapter {
     private ArrayList<String> subjectName;
     private int[] pics;
     private Context context;
+    SharedPreferences preferences ;
     public SubjectArrayAdapter(Context context,ArrayList<String> subjectName){
         this.context=context;
         this.subjectName=subjectName;
         this.pics=pics;
+       preferences= context.getSharedPreferences("lastSeen",MODE_PRIVATE);
 
 
     }
@@ -45,8 +50,10 @@ public class SubjectArrayAdapter extends BaseAdapter {
         TextView date=view.findViewById(R.id.textView2);
 
         date.setText("xxxxxxxxxxxxxxxxx");
+
         switch(subjectName.get(position)){
             case "Science":
+                date.setText(preferences.getString("Science","never"));
                 img.setImageResource(R.mipmap.science);
                 break;
             case "English":
